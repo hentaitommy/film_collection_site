@@ -1,10 +1,37 @@
 import { useState } from "react"
-export default function DetailPage({data}) {
-	const {title} = data
-	return (
-		<div>{title}</div>
-	)
+import Image from 'next/image'
 
+// example page: http://localhost:3000/films/35235502
+export default function DetailPage({ data }) {
+	const { year, title, original_title, cover, directors, actors, genres, aka, pubdate, tags, rating, intro } = data
+	const { url: cover_url, height, width } = cover.image.normal
+	return <>
+		<div>
+			<span>{title}</span>
+			<span>{original_title}</span>
+			<span>({year})</span></div>
+		<div className="flex flex-row">
+			<Image src={cover_url} width={width} height={height} alt='电影封面' />
+			<div>
+				<div>导演：{directors.map(d => d.name).join('/')}</div>
+				<div>主演：{actors.map(a => a.name).join('/')}</div>
+				<div>类型：{genres}</div>
+				<div>上映时间：{pubdate.join('/')}</div>
+				<div>又名：{aka.join('/')}</div>
+				<div>标签：{tags.map(t => t.name).join('/')}</div>
+			</div>
+			<div>
+				<div>豆瓣评分</div>
+				<div>{rating.value}</div>
+			</div>
+		</div>
+		<div>
+			简介：{intro}
+		</div>
+		<div>
+			用户评论
+		</div>
+	</>
 }
 
 export async function getFilmDetail(id) {
