@@ -9,5 +9,19 @@
       "source": "/api/:match*",
       "destination": "api/:match*"
     }
+  ],
+  "headers": [
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "https://film-collection-site.vercel.app"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST"
+    },
+    {
+      "key": "Vary",
+      "value": "Origin"
+    }
   ]
 }
