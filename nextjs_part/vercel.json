@@ -7,6 +7,10 @@
           "key": "Access-Control-Allow-Origin",
           "value": "https://film-collection-site-management.vercel.app"
         },
+				{
+          "key": "Access-Control-Allow-Origin",
+          "value": "http://localhost:8000/"
+        },
         {
           "key": "Access-Control-Allow-Methods",
           "value": "GET,POST,DELETE"

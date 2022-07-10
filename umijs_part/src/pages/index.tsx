@@ -1,16 +1,13 @@
-import React from 'react';
-import yayJpg from '../assets/yay.jpg';
+import React, { useState } from 'react';
 
-export default function HomePage() {
+import { history } from "umi";
+import { Form, Input, Button } from 'antd'
+
+export default function Index() {
+  
   return (
-    <div>
-      <h2>Yay! Welcome to umi!</h2>
-      <p>
-        <img src={yayJpg} width="388" />
-      </p>
-      <p>
-        To get started, edit <code>pages/index.tsx</code> and save to reload.
-      </p>
-    </div>
+   <div>
+    <Input></Input>
+   </div>
   );
 }
