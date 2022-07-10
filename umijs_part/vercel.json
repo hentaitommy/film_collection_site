@@ -12,16 +12,21 @@
   ],
   "headers": [
     {
-      "key": "Access-Control-Allow-Origin",
-      "value": "https://film-collection-site.vercel.app"
-    },
-    {
-      "key": "Access-Control-Allow-Methods",
-      "value": "GET,POST"
-    },
-    {
-      "key": "Vary",
-      "value": "Origin"
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://film-collection-site.vercel.app"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,POST"
+        },
+        {
+          "key": "Vary",
+          "value": "Origin"
+        }
+      ]
     }
   ]
 }
