@@ -1,10 +1,48 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useComment, postComment } from "@/utils/comment"
 import Image from 'next/image'
+import { Input, List, Button, message } from 'antd';
 
 // example page: http://localhost:3000/films/35235502
 export default function DetailPage({ data }: { data: any }) {
-	const { year, title, original_title, cover, directors, actors, genres, aka, pubdate, tags, rating, intro } = data
+	const { id, year, title, original_title, cover, directors, actors, genres, aka, pubdate, tags, rating, intro } = data
 	const { url: cover_url, height, width } = cover.image.normal
+	const [comments, commentError, refresh] = useComment(id)
+
+	const [content, setContent] = useState('')
+	const onContentChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+		setContent(e.target.value)
+	}
+	const [username, setUsername] = useState('')
+	const onUsernameChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+		setUsername(e.target.value)
+	}
+	const [loading, setLoading] = useState(false)
+	const onSubmit = async () => {
+		if (!content) {
+			message.error('未填写评论内容')
+			return
+		}
+		if (!username) {
+			message.error('未填写用户名')
+			return
+		}
+
+		setLoading(true)
+		const res = await postComment(id, content, username)
+		if(res.status === 200){
+			refresh()
+			setContent('')
+		}
+		setLoading(false)
+	}
+
+	const Commenter = <>
+		<Input.TextArea rows={4} bordered={false} value={content} onChange={onContentChange} className='resize-none' />
+		<Input value={username} onChange={onUsernameChange} />
+		<Button onClick={onSubmit} loading={false}>发表评论</Button>
+	</>
+
 	return <>
 		<div>
 			<span>{title}</span>
@@ -30,6 +68,21 @@ export default function DetailPage({ data }: { data: any }) {
 		</div>
 		<div>
 			用户评论
+			<List
+				dataSource={comments}
+				renderItem={item => (
+					<List.Item>
+						<List.Item.Meta
+							title={item.content}
+							description={<>
+								{`用户：${item.username}`}<br />
+								{`发布时间：${item.createdAt}`}<br />
+							</>}
+						/>
+					</List.Item>
+				)}
+			/>
+			{Commenter}
 		</div>
 	</>
 }
