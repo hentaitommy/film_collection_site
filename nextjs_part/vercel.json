@@ -1,26 +1,15 @@
 {
-  "build": {
-    "env": {
-      "ENABLE_FILE_SYSTEM_API": "1"
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/api/:match*",
-      "destination": "api/:match*"
-    }
-  ],
   "headers": [
     {
       "source": "/api/(.*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://film-collection-site.vercel.app"
+          "value": "https://film-collection-site-management.vercel.app"
         },
         {
           "key": "Access-Control-Allow-Methods",
-          "value": "GET,POST"
+          "value": "GET,POST,DELETE"
         },
         {
           "key": "Vary",

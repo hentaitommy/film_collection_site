@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link, Outlet } from 'umi';
 import styles from './index.less';
 

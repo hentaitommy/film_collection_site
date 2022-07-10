@@ -1,30 +1,24 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { PrismaClient } from '@prisma/client'
+import { verifyToken } from '../../../utils/jwt';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+
 	try {
 		let prisma: PrismaClient;
 		switch (req.method) {
-			case 'GET':
-				const filmId = +(req.query.filmId as string)
-				console.log(req.query.filmId)
-				prisma = new PrismaClient()
-				const comments = await prisma.comment.findMany({
-					where: {
-						filmId
-					}
-				})
-				res.status(200).json(comments);
-				await prisma.$disconnect()
-				break
+			case 'DELETE':
+				try {
+					if (!req.cookies?.token) { return res.status(401).send('Unauthorized') }
+					await verifyToken(req.cookies.token)
+				} catch (error: any) {
+					return res.status(401).json(error);
+				}
 
-			case 'POST':
 				prisma = new PrismaClient()
-				const comment = await prisma.comment.create({
-					data: {
-						filmId: +(req.query.filmId as string),
-						username: req.body.username,
-						content: req.body.content,
+				const comment = await prisma.comment.delete({
+					where: {
+						id: +(req.query.commentId as string)
 					}
 				})
 				res.status(200).json(comment);

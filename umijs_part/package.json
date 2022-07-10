@@ -2,24 +2,18 @@
   "private": true,
   "scripts": {
     "dev": "umi dev",
-    "build": "prisma generate && umi build",
+    "build": "umi build",
     "postinstall": "umi setup",
-    "setup": "umi setup",
     "start": "npm run dev"
   },
   "dependencies": {
-    "@prisma/client": "^4.0.0",
-    "@types/jsonwebtoken": "^8.5.8",
-    "antd": "^4.21.5",
-    "jsonwebtoken": "^8.5.1",
-    "prisma": "^4.0.0",
-    "umi": "4.0.0-rc.17"
+    "umi": "^4.0.0-rc.24"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "@umijs/plugins": "4.0.0-rc.17",
-    "tailwindcss": "^3",
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.2",
+    "@umijs/plugins": "^4.0.6",
+    "tailwindcss": "^3"
   }
 }

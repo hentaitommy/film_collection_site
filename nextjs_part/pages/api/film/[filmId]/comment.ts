@@ -1,15 +1,17 @@
-import { UmiApiRequest, UmiApiResponse } from "umi";
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { PrismaClient } from '@prisma/client'
 
-export default async function (req: UmiApiRequest, res: UmiApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+	
 	try {
 		let prisma: PrismaClient;
 		switch (req.method) {
 			case 'GET':
+				const filmId = +(req.query.filmId as string)
 				prisma = new PrismaClient()
 				const comments = await prisma.comment.findMany({
 					where: {
-						filmId: +req.params.filmId
+						filmId
 					}
 				})
 				res.status(200).json(comments);
@@ -20,7 +22,7 @@ export default async function (req: UmiApiRequest, res: UmiApiResponse) {
 				prisma = new PrismaClient()
 				const comment = await prisma.comment.create({
 					data: {
-						filmId: +req.params.filmId,
+						filmId: +(req.query.filmId as string),
 						username: req.body.username,
 						content: req.body.content,
 					}

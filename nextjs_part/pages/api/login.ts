@@ -1,7 +1,9 @@
-import { UmiApiRequest, UmiApiResponse } from "umi";
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { signToken } from "@/utils/jwt";
+import Cookies from 'cookies'
 
-export default async function (req: UmiApiRequest, res: UmiApiResponse) {
+export default async function handle(req: NextApiRequest, res: NextApiResponse) {
+	const cookies = new Cookies(req, res)
 	switch (req.method) {
 		case 'POST':
 			try {
@@ -14,10 +16,8 @@ export default async function (req: UmiApiRequest, res: UmiApiResponse) {
 					return res.status(401)
 						.json({ message: '密码错误' })
 				}
-
-				res.status(200)
-					.setCookie('token', await signToken(0))
-					.text('login success')
+				cookies.set('token', await signToken(0))
+				res.status(200).send(null)
 			} catch (error: any) {
 				console.log(error)
 				res.status(500).json(error);
