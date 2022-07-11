@@ -22,28 +22,39 @@ export default function Index() {
 		)
 	}
 	return <>
-		<Input.Search
-			placeholder="输入关键词搜索电影"
-			allowClear
-			enterButton="Search"
-			size="large"
-			onSearch={onSearch}
-		/>
-		<List
-			dataSource={filteredIndex}
-			renderItem={item => (
-				<List.Item>
-					<List.Item.Meta
-						avatar={<Image src={item.poster} alt={`${item.title}的海报`} width={110} height={160}/>}
-						title={<Link href={`/film/${item.id}`}>{item.title}</Link>}
-						description={<>
-							{`电影原名：${item.original_title}`}<br />
-							{`上映年份：${item.year}`}<br />
-						</>}
+		<div className='flex justify-center'>
+			<div className='w-[800px] h-screen flex flex-col'>
+				<div className='text-5xl italic flex justify-center p-8'>Movie Search</div>
+				<Input.Search
+					className='p-4'
+					placeholder="输入关键词搜索电影"
+					allowClear
+					enterButton="Search"
+					size="large"
+					onSearch={onSearch}
+				/>
+				<div className='overflow-auto px-8'>
+					<List
+						dataSource={filteredIndex}
+						renderItem={item => (
+							<List.Item>
+								<List.Item.Meta
+									avatar={<Image src={item.poster} alt={`${item.title}的海报`} width={110} height={160} />}
+									title={<Link href={`/film/${item.id}`}>{item.title}</Link>}
+									description={<>
+										{`电影原名：${item.original_title}`}<br />
+										{`上映年份：${item.year}`}<br />
+									</>}
+								/>
+							</List.Item>
+						)}
 					/>
-				</List.Item>
-			)}
-		/>
+				</div>
+
+			</div>
+		</div>
+
+
 	</>
 
 }

@@ -30,59 +30,66 @@ export default function DetailPage({ data }: { data: any }) {
 
 		setLoading(true)
 		const res = await postComment(id, content, username)
-		if(res.status === 200){
+		if (res.status === 200) {
 			refresh()
 			setContent('')
 		}
 		setLoading(false)
 	}
 
-	const Commenter = <>
-		<Input.TextArea rows={4} bordered={false} value={content} onChange={onContentChange} className='resize-none' />
-		<Input value={username} onChange={onUsernameChange} />
-		<Button onClick={onSubmit} loading={false}>发表评论</Button>
-	</>
-
 	return <>
-		<div>
-			<span>{title}</span>
-			<span>{original_title}</span>
-			<span>({year})</span></div>
-		<div className="flex flex-row">
-			<Image src={cover_url} width={width} height={height} alt='电影封面' />
-			<div>
-				<div>导演：{directors.map((d: any) => d.name).join('/')}</div>
-				<div>主演：{actors.map((a: any) => a.name).join('/')}</div>
-				<div>类型：{genres}</div>
-				<div>上映时间：{pubdate.join('/')}</div>
-				<div>又名：{aka.join('/')}</div>
-				<div>标签：{tags.map((t: any) => t.name).join('/')}</div>
+		<div className="flex justify-center">
+			<div className="w-[800px]">
+				<div className="text-3xl my-4">
+					<span className="mr-2">{title}</span>
+					<span className="mr-2">{original_title}</span>
+					<span className="mr-2">({year})</span>
+				</div>
+				<div className="flex flex-row justify-between">
+					<Image src={cover_url} width={216} height={304} alt='电影封面' />
+					<div className="flex-1 px-4">
+						<div>导演：{directors.map((d: any) => d.name).join('/')}</div>
+						<div>主演：{actors.map((a: any) => a.name).join('/')}</div>
+						<div>类型：{genres}</div>
+						<div>上映时间：{pubdate.join('/')}</div>
+						<div>又名：{aka.join('/')}</div>
+						<div>标签：{tags.map((t: any) => t.name).join('/')}</div>
+					</div>
+					<div>
+						<div>豆瓣评分</div>
+						<div>{rating.value}</div>
+					</div>
+				</div>
+				<div className="mt-4">
+					简介：{intro}
+				</div>
+				<div className="mt-4">
+					用户评论：
+					<List
+						dataSource={comments}
+						renderItem={item => (
+							<List.Item>
+								<List.Item.Meta
+									title={item.content}
+									description={<>
+										{`用户：${item.username}`}<br />
+										{`发布时间：${(new Date(item.createdAt)).toLocaleString()}`}<br />
+									</>}
+								/>
+							</List.Item>
+						)}
+					/>
+					<Input.TextArea rows={4} value={content} onChange={onContentChange} className='resize-none' placeholder="畅所欲言吧" />
+					<div className="flex justify-between my-2">
+						<div className="w-64 flex items-center">
+							<span className="w-24">用户名：</span>
+							<Input value={username} onChange={onUsernameChange} />
+						</div>
+						<Button onClick={onSubmit} loading={loading}>发表评论</Button>
+					</div>
+
+				</div>
 			</div>
-			<div>
-				<div>豆瓣评分</div>
-				<div>{rating.value}</div>
-			</div>
-		</div>
-		<div>
-			简介：{intro}
-		</div>
-		<div>
-			用户评论
-			<List
-				dataSource={comments}
-				renderItem={item => (
-					<List.Item>
-						<List.Item.Meta
-							title={item.content}
-							description={<>
-								{`用户：${item.username}`}<br />
-								{`发布时间：${item.createdAt}`}<br />
-							</>}
-						/>
-					</List.Item>
-				)}
-			/>
-			{Commenter}
 		</div>
 	</>
 }
