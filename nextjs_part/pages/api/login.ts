@@ -10,11 +10,11 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
 				const { username, password } = req.body
 				if (username !== 'admin') {
 					return res.status(401)
-						.json({ message: '用户不存在' })
+						.send('用户不存在')
 				}
 				if (password !== '123456') {
 					return res.status(401)
-						.json({ message: '密码错误' })
+						.send('密码错误')
 				}
 				cookies.set('token', await signToken(0))
 				res.status(200).send(null)
