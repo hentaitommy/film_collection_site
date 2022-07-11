@@ -42,6 +42,7 @@ export default function Index() {
 		<div className='h-screen flex justify-center items-center bg-blue-300'>
 			<div className='bg-blue-100 rounded-lg px-4 pt-4'>
 				<Form
+					labelCol={{ span: 4 }}
 					onFinish={onFinish}
 					onFinishFailed={onFinishFailed}
 					autoComplete="off"
@@ -49,18 +50,18 @@ export default function Index() {
 				>
 					<Form.Item>
 						<header className='font-mono text-2xl'>
-							Management Login
+							电影收录系统管理端
 						</header>
 					</Form.Item>
 					<Form.Item
-						label="Username"
+						label="用户名"
 						name="username"
 						rules={[{ required: true, message: 'Please input your username!' }]}
 					>
 						<Input />
 					</Form.Item>
 					<Form.Item
-						label="Password"
+						label="密码"
 						name="password"
 						rules={[{ required: true, message: 'Please input your password!' }]}
 					>
@@ -68,7 +69,7 @@ export default function Index() {
 					</Form.Item>
 					<Form.Item wrapperCol={{ offset: 0 }}>
 						<Button type="primary" htmlType="submit" loading={loading} className="w-40" >
-							Login
+							登录
 						</Button>
 					</Form.Item>
 				</Form>
