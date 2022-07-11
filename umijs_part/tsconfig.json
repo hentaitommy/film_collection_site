@@ -1,3 +1,19 @@
 {
-  "extends": "./src/.umi/tsconfig.json"
+  "compilerOptions": {
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@@/*": [
+        "src/.umi/*"
+      ],
+      "umi": [
+        "E:\\WorkDir\\film_collection_site\\umijs_part\\node_modules\\.pnpm\\umi@4.0.6_f4r72td3b3qpzuqmwffaujekii\\node_modules\\umi"
+      ],
+      "umi/typings": [
+        "src/.umi/typings"
+      ]
+    }
+  },
+  "extends": "./src/.umi/tsconfig.json",
 }

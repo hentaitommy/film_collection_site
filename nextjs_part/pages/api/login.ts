@@ -1,8 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { signToken } from "@/utils/jwt";
 import Cookies from 'cookies'
+import { corsMiddleWare } from './_middleware/cors';
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
+	await corsMiddleWare(req, res)
 	const cookies = new Cookies(req, res)
 	switch (req.method) {
 		case 'POST':

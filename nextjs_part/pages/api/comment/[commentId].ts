@@ -1,9 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { PrismaClient } from '@prisma/client'
 import { verifyToken } from '../../../utils/jwt';
+import { corsMiddleWare } from '../_middleware/cors';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
+	await corsMiddleWare(req, res)
 	try {
 		let prisma: PrismaClient;
 		switch (req.method) {

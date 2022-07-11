@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { PrismaClient } from '@prisma/client'
+import { corsMiddleWare } from '../../_middleware/cors';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
+	await corsMiddleWare(req, res)
 	try {
 		let prisma: PrismaClient;
 		switch (req.method) {
@@ -30,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 				res.status(200).json(comment);
 				await prisma.$disconnect()
 				break
-				
+
 			case 'OPTIONS':
 				res.status(200).send(null)
 				break;

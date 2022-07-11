@@ -13,7 +13,7 @@ export function useComment(filmId: number | undefined) {
 	async function getComments(filmId: number | undefined) {
 		if (filmId === undefined) return
 		try {
-			const res = await fetch(`/api/film/${filmId}/comment`)
+			const res = await fetch(`https://film-collection-site.vercel.app/api/film/${filmId}/comment`)
 			const data = await res.json()
 			setComments(data)
 		} catch (e) {
@@ -28,13 +28,10 @@ export function useComment(filmId: number | undefined) {
 	return [comments, error, refresh] as const
 }
 
-export async function postComment(filmId: number, content: string, username: string) {
-	const res = await fetch(`/api/film/${filmId}/comment`, {
-		method: 'POST',
-		body: JSON.stringify({ content, username }),
-		headers: {
-			'Content-Type': 'application/json'
-		}
+export async function deleteComment(commentId: number) {
+	const res = await fetch(`https://film-collection-site.vercel.app/api/comment/${commentId}`, {
+		method: 'DELETE',
+		credentials: 'include',
 	})
 	return res
-}
+} 
