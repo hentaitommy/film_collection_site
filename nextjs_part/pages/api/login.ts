@@ -23,6 +23,9 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
 				res.status(500).json(error);
 			}
 			break;
+		case 'OPTIONS':
+			res.status(200).send(null)
+			break;
 		default:
 			res.status(405).json({ error: 'Method not allowed' })
 	}
