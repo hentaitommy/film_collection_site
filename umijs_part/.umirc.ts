@@ -11,5 +11,4 @@ export default {
     },
     { exact: true, path: '/login', component: 'login' },
   ],
-  publicPath: process.env.NODE_ENV === 'production' ? '/management/' : '/',
 };
