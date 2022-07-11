@@ -17,8 +17,8 @@ async function login(user: { username: string, password: string }) {
 			message.error((await res.text()));
 			return;
 		}
-
-		localStorage.setItem("isLogin", "true")
+		const token = await res.text()
+		localStorage.setItem("token", token)
 		localStorage.setItem("currentUser", user.username)
 		history.push('/');
 	} catch (err) {

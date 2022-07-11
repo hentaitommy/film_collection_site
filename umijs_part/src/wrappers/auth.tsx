@@ -3,7 +3,7 @@ import { Navigate } from 'umi'
 import { Outlet } from 'umi';
 
 export default () => {
-	const isLogin = localStorage.getItem('isLogin');
+	const isLogin = localStorage.getItem('token');
 	if (!!isLogin) {
 		return <Outlet></Outlet>;
 	} else {

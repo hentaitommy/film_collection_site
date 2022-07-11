@@ -19,11 +19,11 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
 					return res.status(401)
 						.send('密码错误')
 				}
-				cookies.set('token', await signToken(0),{
-					sameSite: 'none',
-					secure: true,
-				})
-				res.status(200).send(null)
+				// cookies.set('token', await signToken(0),{
+				// 	sameSite: 'none',
+				// 	secure: true,
+				// })
+				res.status(200).send(await signToken(0))
 			} catch (error: any) {
 				console.log(error)
 				res.status(500).json(error);

@@ -10,8 +10,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		switch (req.method) {
 			case 'DELETE':
 				try {
-					if (!req.cookies?.token) { return res.status(401).send('Unauthorized') }
-					await verifyToken(req.cookies.token)
+					if (!req.body?.token) { return res.status(401).send('Unauthorized') }
+					await verifyToken(req.body.token)
 				} catch (error: any) {
 					return res.status(401).json(error);
 				}
