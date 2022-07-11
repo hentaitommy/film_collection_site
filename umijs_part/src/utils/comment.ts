@@ -30,8 +30,13 @@ export function useComment(filmId: number | undefined) {
 
 export async function deleteComment(commentId: number) {
 	const res = await fetch(`https://film-collection-site.vercel.app/api/comment/${commentId}`, {
+		body: JSON.stringify({
+			token: localStorage.getItem('token')
+		}),
 		method: 'DELETE',
-		credentials: 'include',
+		headers: {
+			'Content-Type': 'application/json'
+		}
 	})
 	return res
 } 
