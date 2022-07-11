@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { signToken } from "@/utils/jwt";
 import Cookies from 'cookies'
 import { corsMiddleWare } from './_middleware/cors';
+import { NodeNextRequest } from 'next/dist/server/base-http/node';
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
 	await corsMiddleWare(req, res)
@@ -18,7 +19,10 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
 					return res.status(401)
 						.send('密码错误')
 				}
-				cookies.set('token', await signToken(0))
+				cookies.set('token', await signToken(0),{
+					sameSite: 'none',
+					secure: true,
+				})
 				res.status(200).send(null)
 			} catch (error: any) {
 				console.log(error)

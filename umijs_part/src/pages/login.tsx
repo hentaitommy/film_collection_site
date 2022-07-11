@@ -9,7 +9,8 @@ async function login(user: { username: string, password: string }) {
 			body: JSON.stringify(user),
 			headers: {
 				'Content-Type': 'application/json'
-			}
+			},
+			credentials: 'include',
 		})
 
 		if (res.status !== 200) {
